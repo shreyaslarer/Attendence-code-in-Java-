@@ -1,0 +1,66 @@
+import java.util.*;
+import java.text.SimpleDateFormat;
+
+public class Main{
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        List<Student> students = new ArrayList<>();
+        students.add(new Student("enter the name of steudent 1 as your wish"));
+        students.add(new Student("enter the name of steudent 1 as your wish"));
+        students.add(new Student("enter the name of steudent 1 as your wish"));
+
+        System.out.println("Attendance Taking App");
+        System.out.println("Date: " + dateFormat.format(new Date()));
+
+        // Mark attendance for each student
+        for (Student student : students) {
+            System.out.print("Is " + student.getName() + " present? (y/n): ");
+            String input = scanner.nextLine();
+
+            if (input.equalsIgnoreCase("y")) {
+                student.setAttendance(true, dateFormat.format(new Date()));
+                System.out.println(student.getName() + " marked present.");
+            } else {
+                student.setAttendance(false, null);
+                System.out.println(student.getName() + " marked absent.");
+            }
+        }
+
+        // Display attendance summary
+        System.out.println("\nAttendance Summary:");
+        for (Student student : students) {
+            System.out.println(student.getName() + ": " + (student.isPresent() ? "Present at " + student.getAttendanceTime() : "Absent"));
+        }
+    }
+}
+
+class Student {
+    private String name;
+    private boolean present;
+    private String attendanceTime;
+
+    public Student(String name) {
+        this.name = name;
+        this.present = false;
+        this.attendanceTime = null;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean isPresent() {
+        return present;
+    }
+
+    public String getAttendanceTime() {
+        return attendanceTime;
+    }
+
+    public void setAttendance(boolean present, String attendanceTime) {
+        this.present = present;
+        this.attendanceTime = attendanceTime;
+    }
+}
